@@ -21,9 +21,21 @@ case class ChessState(
     for ((pos, moves) <- pseudoLegalMoves) {
       val pieceMoves: ListBuffer[Move] = ListBuffer()
       for (move <- moves) {
-        val attacksKing = checkPseudoMoveIsValid(move)
-        if (!attacksKing) {
-          pieceMoves += move
+        val updatedBoard = board.makeMove(move)
+        val updatedState = copy(
+          board = updatedBoard,
+          whiteTurn = !whiteTurn,
+          moveStack = moveStack.appended(move)
+        )
+
+        val kingSquare = updatedState.board.getKingSquare(whiteTurn);
+        if(kingSquare.isDefined) {
+          val attacksKing = updatedState.pseudoLegalMoves.values.exists(moves =>
+            moves.exists(it => it.to == kingSquare.get)
+          )
+          if(!attacksKing) {
+            pieceMoves += move;
+          }
         }
       }
 
@@ -38,21 +50,29 @@ case class ChessState(
 
     board.board
       .zipWithIndex.foreach {
-        case (piece, pos) if Piece.isValidPiece(piece) && (Piece.isWhite(piece) == whiteTurn) =>
+        case (piece, pos) if Piece.isValidPiece(piece) =>
           val extraMoves: Set[Move] = Piece.getPieceBits(piece) match {
             case Piece.Pawn => getEnPassantIfEnabled(pos).toSet
-            case Piece.King => getCastleRightAndLeftMove(piece).filter(it => it.isDefined).map(it => it.get)
             case _ => Set.empty
           }
           pseudoMovesMap(pos) = (Piece.generateMoves(board, pos) ++ extraMoves)
         case _ =>
       }
+    val kingSquare = board.getKingSquare(whiteTurn);
+    if(kingSquare.isDefined) {
+      val kingMoves = pseudoMovesMap(kingSquare.get) ++ getCastleRightAndLeftMove(board.getPiece(kingSquare.get),
+        pseudoMovesMap.filter(it => Piece.isWhite(board.getPiece(it._1)) != whiteTurn)
+          .values.flatten.toSet)
+        .filter(it => it.isDefined).map(it => it.get)
+      pseudoMovesMap(kingSquare.get) = kingMoves
+    }
+
 
     pseudoMovesMap.toMap
   }
 
   def movePiece(from: Square, to: Square, piece: Int): ChessState = {
-    if(isCheckmate) return this;
+    if (isCheckmate) return this;
     val fromPos = Board.squareToBoardPosition(from);
     val toPos = Board.squareToBoardPosition(to);
     if (piece != board.getPiece(fromPos)) return this;
@@ -90,11 +110,11 @@ case class ChessState(
     Some(EnPassant(attackerPos, toPos, lastMove.to, piece));
   }
 
-  private def getCastleRightAndLeftMove(king: Int): Set[Option[Castle]] = {
-    Set(getCastleMove(king, right = false), (getCastleMove(king, right = true)))
+  private def getCastleRightAndLeftMove(king: Int, attackerPseudoMoves: Set[Move]): Set[Option[Castle]] = {
+    Set(getCastleMove(king, right = false, attackerPseudoMoves), (getCastleMove(king, right = true, attackerPseudoMoves)))
   }
 
-  private def getCastleMove(king: Int, right: Boolean): Option[Castle] = {
+  private def getCastleMove(king: Int, right: Boolean, attackerPseudoMoves: Set[Move]): Option[Castle] = {
     if (Piece.hasMoved(king)) return None
     val rookFile = if (right) 7 else 0;
     val kingRank = if (Piece.isWhite(king)) 0 else 56;
@@ -108,28 +128,15 @@ case class ChessState(
       val pos = i + kingRank
       val posPiece = board.getPiece(pos)
       if (Piece.getPieceBits(posPiece) != Piece.None) return None
-      if(!checkPseudoMoveIsValid(
-        NormalMove(from = kingRank + 4, to = pos)
-      )) return None
+      print(attackerPseudoMoves)
+      if (attackerPseudoMoves.exists(it => it.to == pos)) return None
     }
 
     Some(Castle(4 + kingRank, (if (right) 6 else 2) + kingRank, right))
   }
 
-  private def checkPseudoMoveIsValid(move: Move): Boolean = {
-    val updatedBoard = board.makeMove(move)
-    val updatedState = copy(
-      board = updatedBoard,
-      whiteTurn = !whiteTurn,
-      moveStack = moveStack.appended(move)
-    )
-    updatedState.pseudoLegalMoves.values.exists(moves =>
-      moves.exists(it => it.to == updatedState.board.getKingSquare(whiteTurn))
-    )
-  }
-
   def isCheckmate: Boolean = {
-    legalMoves.forall { case (_, moves) => moves.isEmpty }
+    legalMoves.filter{case (pos, _) => Piece.isWhite(board.getPiece(pos)) == whiteTurn}.forall { case (_, moves) => moves.isEmpty }
   }
 
 

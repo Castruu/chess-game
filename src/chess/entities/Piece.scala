@@ -127,9 +127,11 @@ object MoveGenerator {
     val colorFactor = if (Piece.isWhite(pieceToMove)) 8 else -8;
 
     val captureOffset = Vector(-1 + colorFactor, 1 + colorFactor)
-    captureOffset.foreach { offset =>
+    val squareDistance = Board.squareDistanceToEdge(from)
+    val eastAndWestDistance = Vector(squareDistance(1), squareDistance(3))
+    captureOffset.zipWithIndex.foreach { case (offset, idx) =>
       val posOnBoard = from + offset
-      if (board.isInBounds(posOnBoard)) {
+      if (eastAndWestDistance(idx) >= 1) {
         board.getPiece(posOnBoard) match {
           case Piece.None =>
           case piece if !Piece.isValidPiece(piece) =>

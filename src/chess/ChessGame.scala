@@ -132,21 +132,6 @@ class ChessGame extends GameBase {
     dragState = None
   }
 
-
-  //
-  //  override def keyPressed(event: KeyEvent): Unit = {
-  //
-  //    event.getKeyCode match {
-  //      case VK_LEFT => gameLogic.move(Left)
-  //      case VK_RIGHT => gameLogic.move(Right)
-  //      case VK_DOWN => gameLogic.move(Down)
-  //      case VK_UP   => gameLogic.move(Up)
-  //      case VK_SPACE    => gameLogic.setTarget()
-  //      case _        => ()
-  //    }
-  //
-  //  }
-
   override def settings(): Unit = {
     pixelDensity(displayDensity())
     // If line below gives errors try size(totalWidthInPixels, totalHeightInPixels, PConstants.P2D)

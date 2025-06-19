@@ -57,97 +57,17 @@ case class Board(
 
   def isPromotionRank(coordinates: Int): Boolean = coordinates <= 7 || coordinates >= 56
 
-//  def getEnPassantIfEnabled(attackerPos: Square, attacker: Piece): Option[EnPassant] = {
-//    if (!(attacker.isInstanceOf[Pawn])) return None
-//    if (moveStack.isEmpty) return None
-//    val lastMove = moveStack.top
-//    if (abs(attackerPos.x - lastMove.to.x) != 1) return None
-//    if (lastMove.to.y != attackerPos.y) return None
-//    if (abs(lastMove.to.y - lastMove.from.y) != 2) return None
-//
-//    val piece = getPiece(lastMove.to)
-//    if (piece.isEmpty) return None
-//    if (!(piece.get.isInstanceOf[Pawn])) return None
-//
-//    if (!((piece.get.white && lastMove.to.y == 3) || (!piece.get.white && lastMove.to.y == 4))) return None;
-//
-//    val colorOffset = if (attacker.white) 1 else -1
-//    Some(EnPassant(attackerPos, Square(lastMove.to.x, lastMove.to.y + colorOffset), lastMove.to, piece.get.asInstanceOf[Pawn]));
-//  }
-//
-//  def getCastleMove(king: King, right: Boolean): Option[Castle] = {
-//    if (king.moved) return None
-//    val rookFile = if (right) 7 else 0;
-//    val kingRank = if (king.white) 0 else 7;
-//    val rookSquare = Square(rookFile, kingRank)
-//    val piece = getPiece(rookSquare)
-//    if (piece.isEmpty) return None
-//    if (!piece.get.isInstanceOf[Rook]) return None
-//    val rook = piece.get.asInstanceOf[Rook]
-//    if (rook.moved) return None
-//    val range = if (right) 5 to 6 else 1 to 3
-//    for (i <- range) {
-//      val square = Square(i, kingRank)
-//      val squareHasPiece = getPiece(square).isDefined
-//      if (squareHasPiece) return None
-//      if (attackedSquares(!king.white).contains(square)) return None
-//    }
-//
-//    Some(Castle(Square(4, kingRank), Square(if (right) 6 else 2, kingRank), right))
-//  }
-//
-//
-//  def isSquareAttacked(byWhite: Boolean, square: Square): Boolean = {
-//    attackedSquares(byWhite).contains(square)
-//  }
-//
-//  private def updateMoveCache(): Unit = {
-//    whiteMoves ++= generateMovesByColor(white = true);
-//    blackMoves ++= generateMovesByColor(white = false);
-//  }
-//
-//  private def generateMovesByColor(white: Boolean): Map[Square, List[Move]] = {
-//    val moves = for {
-//      (files, x) <- board.zipWithIndex
-//      (piece, y) <- files.zipWithIndex
-//      if piece.exists(_.white == white)
-//    } yield {
-//      val square = Square(x, y)
-//      val pieceMoves = piece.get.generateMoves(square, this)
-//      piece.get match {
-//        case _: Pawn =>
-//          val colorFactor = if (white) 1 else -1
-//          val squares = Array(Square(x - 1, y + colorFactor), Square(x + 1, y + colorFactor))
-//          squares.foreach(sq => attackedSquares(white) += sq)
-//        case _ => pieceMoves.foreach(move => attackedSquares(white) += move.to)
-//      }
-//      square -> pieceMoves
-//    }
-//
-//    moves.toMap
-//  }
-//
-//  private def isCheck(white: Boolean): Boolean = {
-//    val kingSquare = board.zipWithIndex.view.flatMap { case (files, x) =>
-//      files.zipWithIndex.collectFirst {
-//        case (Some(king: King), y) if king.white == white => Square(x, y)
-//      }
-//    }.headOption
-//
-//    kingSquare.exists(attackedSquares(!white).contains)
-//  }
-
-  def updateWithPiece(pos: Int, piece: Int): Board = {
+  private def updateWithPiece(pos: Int, piece: Int): Board = {
     copy(
       board = board.updated(pos, piece)
     )
   }
 
 
-  def getKingSquare(white: Boolean): Int = {
+  def getKingSquare(white: Boolean): Option[Int] = {
     board.zipWithIndex.find {
       case (it, index) => Piece.isValidPiece(it) && (Piece.isWhite(it) == white) && (Piece.getPieceBits(it) == Piece.King)
-    }.get._2
+    }.map(it => it._2)
   }
 }
 
