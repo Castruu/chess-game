@@ -54,4 +54,6 @@ truly inspiring.
 
 ## Video
 [Video on VU Panopto](https://vu.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=a8ed02e2-8b02-46d3-8214-b30301273ace)
+[Video Stalemate on VU Panopto](https://vu.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=c1fa7562-6e73-48da-b20e-b30301290c75)
+[Video Checkmate on VU Panopto](https://vu.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=c271ca93-fcd1-40ec-948e-b30301296c15)
 

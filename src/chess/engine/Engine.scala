@@ -122,8 +122,11 @@ object Engine {
     }
 
     val moves = state.generateLegalMoves().values.flatMap(_.toList).toList
-    if (moves.isEmpty) {
+    if(state.isCheckmate) {
       return if (state.whiteTurn) (Int.MinValue + 1, None) else (Int.MaxValue - 1, None)
+    }
+    if (state.isStalemate) {
+      return (0, None)
     }
 
     var bestMove: Option[Move] = None
