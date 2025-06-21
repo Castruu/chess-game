@@ -5,60 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea839a78-9966-4870-a6d4-1afa9f145310" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.10/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/GrepConsole.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/chess-oofp-bonus.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/ChessGame$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/ChessGame$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/ChessGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/ChessGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/ChessState$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/ChessState$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/ChessState.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/ChessState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/DragState$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/DragState$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/DragState.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/DragState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Board$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Board$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/MoveGenerator$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/MoveGenerator$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Piece$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Piece$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Piece.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Square$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Square$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Square.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/chess/entities/Square.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/GameBase$UpdateTimer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/GameBase.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/graphics/Color$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/graphics/Color.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/graphics/Point$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/graphics/Point.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/graphics/Rectangle$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/graphics/Rectangle.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/graphics/Triangle$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/graphics/Triangle.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/random/ListRandomGen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/random/RandomGenerator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/engine/random/ScalaRandomGen.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/ChessGame.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/ChessGame.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/ChessState.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/ChessState.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/entities/Board.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/entities/Board.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/entities/Piece.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/entities/Piece.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/GameBase.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameengine/GameBase.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/graphics/Color.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameengine/graphics/Color.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/graphics/Point.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameengine/graphics/Point.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/graphics/Rectangle.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameengine/graphics/Rectangle.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/graphics/Triangle.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameengine/graphics/Triangle.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/random/ListRandomGen.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameengine/random/ListRandomGen.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/random/RandomGenerator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameengine/random/RandomGenerator.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/random/ScalaRandomGen.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameengine/random/ScalaRandomGen.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +25,73 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build setup" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="distribution" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="help" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chess-oofp-bonus" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -86,6 +109,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.chess-oofp-bonus [:chess.ChessGame.main()].executor": "Run",
+    "Gradle.chess-oofp-bonus [run].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -99,7 +123,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.chess-oofp-bonus [run]">
     <configuration name="ChessGame" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="chess.ChessGame" />
       <module name="chess-oofp-bonus.main" />
@@ -113,8 +142,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="chess-oofp-bonus [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.chess-oofp-bonus [run]" />
         <item itemvalue="Application.ChessGame" />
       </list>
     </recent_temporary>
@@ -135,7 +187,7 @@
       <option name="presentableId" value="Default" />
       <updated>1748970655869</updated>
       <workItem from="1748970657324" duration="134000" />
-      <workItem from="1750412599164" duration="18227000" />
+      <workItem from="1750412599164" duration="20600000" />
     </task>
     <servers />
   </component>
