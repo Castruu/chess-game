@@ -1,6 +1,7 @@
 package chess
 
-import chess.entities.{Board, Castle, EnPassant, Move, NormalMove, Piece, Square}
+import chess.engine.Engine
+import chess.entities._
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -8,6 +9,8 @@ import scala.collection.mutable.ListBuffer
 case class ChessState(
                        board: Board = new Board(),
                        whiteTurn: Boolean = true,
+                       playerWhite: Boolean = false,
+                       playWithEngine: Boolean = true,
                        moveStack: Vector[Move] = Vector(),
                      ) {
 
@@ -15,10 +18,10 @@ case class ChessState(
 
   lazy val legalMoves: Map[Int, Set[Move]] = generateLegalMoves()
 
-  private def generateLegalMoves(): Map[Int, Set[Move]] = {
+  def generateLegalMoves(): Map[Int, Set[Move]] = {
     val legalMoves: mutable.Map[Int, Set[Move]] = mutable.Map()
 
-    for ((pos, moves) <- pseudoLegalMoves) {
+    for ((pos, moves) <- pseudoLegalMoves.filter { case (pos, _) => Piece.isWhite(board.getPiece(pos)) == whiteTurn }) {
       val pieceMoves: ListBuffer[Move] = ListBuffer()
       for (move <- moves) {
         val updatedBoard = board.makeMove(move)
@@ -29,11 +32,11 @@ case class ChessState(
         )
 
         val kingSquare = updatedState.board.getKingSquare(whiteTurn);
-        if(kingSquare.isDefined) {
+        if (kingSquare.isDefined) {
           val attacksKing = updatedState.pseudoLegalMoves.values.exists(moves =>
             moves.exists(it => it.to == kingSquare.get)
           )
-          if(!attacksKing) {
+          if (!attacksKing) {
             pieceMoves += move;
           }
         }
@@ -59,7 +62,7 @@ case class ChessState(
         case _ =>
       }
     val kingSquare = board.getKingSquare(whiteTurn);
-    if(kingSquare.isDefined) {
+    if (kingSquare.isDefined) {
       val kingMoves = pseudoMovesMap(kingSquare.get) ++ getCastleRightAndLeftMove(board.getPiece(kingSquare.get),
         pseudoMovesMap.filter(it => Piece.isWhite(board.getPiece(it._1)) != whiteTurn)
           .values.flatten.toSet)
@@ -71,13 +74,21 @@ case class ChessState(
     pseudoMovesMap.toMap
   }
 
-  def movePiece(from: Square, to: Square, piece: Int): ChessState = {
-    if (isCheckmate) return this;
+  def movePiece(from: Square, to: Square, piece: Int, promotionBits: Option[Int] = None): ChessState = {
+    if (isCheckmate || isStalemate) return this;
     val fromPos = Board.squareToBoardPosition(from);
     val toPos = Board.squareToBoardPosition(to);
     if (piece != board.getPiece(fromPos)) return this;
-    val move = legalMoves(fromPos).find(it => it.to == toPos);
+    val possibleMoves = legalMoves.getOrElse(fromPos, Set.empty).filter(it => it.to == toPos)
+    if (possibleMoves.isEmpty) return this;
+    val move = if (possibleMoves.size > 1) {
+      possibleMoves.map(it => it.asInstanceOf[Promotion])
+        .find(it => Piece.getPieceBits(it.promoteTo) == Piece.getPieceBits(promotionBits.get))
+    } else possibleMoves.find(_ => true)
+
+
     if (move.isEmpty) return this;
+
     val updatedBoard = board.makeMove(move.get)
     if (updatedBoard == board) return this;
 
@@ -103,7 +114,7 @@ case class ChessState(
     if (pieceBits == Piece.None) return None
     if (pieceBits != Piece.Pawn) return None
     val enPassantRank = if (attackerIsWhite) 4 else 3
-    val moveToRank = lastMove.to / 8
+    val moveToRank = attackerPos / 8
     if (moveToRank != enPassantRank) return None;
     val colorOffset = if (attackerIsWhite) 8 else -8
     val toPos = attackerPos + colorOffset - differenceAttackerTarget
@@ -118,6 +129,7 @@ case class ChessState(
     if (Piece.hasMoved(king)) return None
     val rookFile = if (right) 7 else 0;
     val kingRank = if (Piece.isWhite(king)) 0 else 56;
+    if (attackerPseudoMoves.exists(it => it.to == (kingRank + 4))) return None
     val rookPos = rookFile + kingRank
     val piece = board.getPiece(rookPos)
     val pieceBits = Piece.getPieceBits(piece)
@@ -128,15 +140,46 @@ case class ChessState(
       val pos = i + kingRank
       val posPiece = board.getPiece(pos)
       if (Piece.getPieceBits(posPiece) != Piece.None) return None
-      print(attackerPseudoMoves)
       if (attackerPseudoMoves.exists(it => it.to == pos)) return None
     }
 
     Some(Castle(4 + kingRank, (if (right) 6 else 2) + kingRank, right))
   }
 
+  def playEngineMove(): ChessState = {
+    val (eval, bestMove) = Engine.search(this, 4);
+    if (bestMove.isDefined) {
+      return movePiece(
+        Board.boardPositionToSquare(bestMove.get.from),
+        Board.boardPositionToSquare(bestMove.get.to),
+        board.getPiece(bestMove.get.from),
+        bestMove.get match {
+          case promotion: Promotion =>
+            Some(promotion.promoteTo)
+          case _ => None
+        }
+      )
+    }
+    this
+  }
+
+  private def isKingAttacked: Boolean = {
+    val kingSquare = board.getKingSquare(whiteTurn)
+    if(kingSquare.isDefined) {
+      return pseudoLegalMoves.values.exists(moves =>
+        moves.exists(it => it.to == kingSquare.get)
+      )
+    }
+
+    true
+  }
+
+  def isStalemate: Boolean = {
+    legalMoves.forall { case (_, moves) => moves.isEmpty } && !isKingAttacked
+  }
+
   def isCheckmate: Boolean = {
-    legalMoves.filter{case (pos, _) => Piece.isWhite(board.getPiece(pos)) == whiteTurn}.forall { case (_, moves) => moves.isEmpty }
+    legalMoves.forall { case (_, moves) => moves.isEmpty } && isKingAttacked
   }
 
 

@@ -54,6 +54,17 @@ object Piece {
     (pieceBits == Queen) || (pieceBits == Rook)
   }
 
+  def getPieceChar(pieceToPromote: Int): Char = {
+    Piece.getPieceBits(pieceToPromote) match {
+      case Piece.Pawn => 'P'
+      case Piece.Knight => 'N'
+      case Piece.Bishop => 'B'
+      case Piece.Rook => 'R'
+      case Piece.Queen => 'Q'
+      case Piece.King => 'K'
+    }
+  }
+
   def movesDiagonal(piece: Int): Boolean = {
     val pieceBits = getPieceBits(piece)
     (pieceBits == Queen) || (pieceBits == Bishop)
@@ -126,28 +137,33 @@ object MoveGenerator {
     val pieceToMove = board.getPiece(from);
     val colorFactor = if (Piece.isWhite(pieceToMove)) 8 else -8;
 
-    val captureOffset = Vector(-1 + colorFactor, 1 + colorFactor)
-    val squareDistance = Board.squareDistanceToEdge(from)
-    val eastAndWestDistance = Vector(squareDistance(1), squareDistance(3))
-    captureOffset.zipWithIndex.foreach { case (offset, idx) =>
+
+    val fromRank = from % 8;
+    val captureOffset = fromRank match {
+      case 0 => Vector(1 + colorFactor)
+      case 7 => Vector(-1 + colorFactor)
+      case _ => Vector(-1 + colorFactor, 1 + colorFactor)
+    }
+    captureOffset.foreach { offset =>
       val posOnBoard = from + offset
-      if (eastAndWestDistance(idx) >= 1) {
         board.getPiece(posOnBoard) match {
           case Piece.None =>
           case piece if !Piece.isValidPiece(piece) =>
           case piece if Piece.isWhite(piece) != Piece.isWhite(pieceToMove) =>
-            if (board.isPromotionRank(posOnBoard)) {
-              val queenToPromote = Piece.Moved | (if (Piece.isWhite(pieceToMove)) Piece.White else Piece.Black) | Piece.Queen;
-              moves += Promotion(from, posOnBoard, queenToPromote, piece)
+            if (board.isPromotionRank(posOnBoard, Piece.isWhite(pieceToMove))) {
+              val pieceToPromote = Piece.Moved | (if (Piece.isWhite(pieceToMove)) Piece.White else Piece.Black);
+              for(bits <- Piece.Bishop to Piece.Queen) {
+                moves += Promotion(from, posOnBoard, pieceToPromote | bits, pieceToMove)
+              }
             } else {
               moves += Capture(from, posOnBoard, piece)
             }
           case _ => None
-        }
       }
     }
 
-    val forwardRange = if (Piece.hasMoved(pieceToMove)) 1 to 1 else 1 to 2
+    val pawnRanking = if(Piece.isWhite(pieceToMove)) 1 else 6
+    val forwardRange = if ((from / 8) != pawnRanking) 1 to 1 else 1 to 2
     breakable {
       for (forwardOffset <- forwardRange) {
         val offset = forwardOffset * colorFactor;
@@ -155,9 +171,11 @@ object MoveGenerator {
         if (board.isInBounds(posOnBoard)) {
           board.getPiece(posOnBoard) match {
             case Piece.None =>
-              if (board.isPromotionRank(posOnBoard)) {
-                val queenToPromote = Piece.Moved | (if (Piece.isWhite(pieceToMove)) Piece.White else Piece.Black) | Piece.Queen;
-                moves += Promotion(from, posOnBoard, queenToPromote, Piece.None)
+              if (board.isPromotionRank(posOnBoard, Piece.isWhite(pieceToMove))) {
+                val pieceToPromote = Piece.Moved | (if (Piece.isWhite(pieceToMove)) Piece.White else Piece.Black);
+                for(bits <- Piece.Bishop to Piece.Queen) {
+                  moves += Promotion(from, posOnBoard, pieceToPromote | bits, pieceToMove)
+                }
               } else {
                 moves += NormalMove(from, posOnBoard)
               }

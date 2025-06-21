@@ -3,6 +3,7 @@ package chess.entities
 import chess.entities.Board.{getInitialBoardArray, squareToBoardPosition}
 
 import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 case class Square(file: Int, rank: Int) {
   def ==(rhs: Square): Boolean = rhs.file == file && rhs.rank == rank;
@@ -30,7 +31,7 @@ case class Board(
         if(Piece.hasMoved(pieceToMove)) return this;
         updatedBoard = updatedBoard.updateWithPiece(to , Piece.Moved | pieceToMove);
         val rookFile = if (right) 7 else 0;
-        val rookRank = move.to / 8;
+        val rookRank = move.from / 8;
         val rookPos = rookFile + rookRank * 8;
         val rook = getPiece(rookPos)
         if(Piece.hasMoved(rook)) return this;
@@ -55,7 +56,9 @@ case class Board(
     range.contains(square.file) && range.contains(square.rank)
   }
 
-  def isPromotionRank(coordinates: Int): Boolean = coordinates <= 7 || coordinates >= 56
+  def isPromotionRank(coordinates: Int, white: Boolean): Boolean = (white && coordinates >= 56) || (!white && coordinates <= 7)
+  def isPromotionSquare(square: Square, white: Boolean): Boolean = (white && square.file == 7) || (!white && square.file == 0)
+
 
   private def updateWithPiece(pos: Int, piece: Int): Board = {
     copy(
@@ -69,6 +72,8 @@ case class Board(
       case (it, index) => Piece.isValidPiece(it) && (Piece.isWhite(it) == white) && (Piece.getPieceBits(it) == Piece.King)
     }.map(it => it._2)
   }
+
+
 }
 
 object Board {
@@ -138,5 +143,6 @@ object Board {
   def boardPositionToSquare(pos: Int): Square = {
     Square(pos % 8, (pos / 8))
   }
+
 
 }
