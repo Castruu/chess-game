@@ -117,16 +117,17 @@ object Engine {
   }
 
   def search(state: ChessState, depth: Int = 1, alpha: Int = Int.MinValue, beta: Int = Int.MaxValue): (Int, Option[Move]) = {
-    if (depth == 0) {
-      return (evaluatePosition(state.board.board), None)
-    }
-
     val moves = state.generateLegalMoves().values.flatMap(_.toList).toList
     if(state.isCheckmate) {
       return if (state.whiteTurn) (Int.MinValue + 1, None) else (Int.MaxValue - 1, None)
     }
+
     if (state.isStalemate) {
       return (0, None)
+    }
+
+    if (depth == 0) {
+      return (evaluatePosition(state.board.board), None)
     }
 
     var bestMove: Option[Move] = None
